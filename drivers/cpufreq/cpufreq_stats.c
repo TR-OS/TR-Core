@@ -208,9 +208,8 @@ static int cpufreq_stats_update(unsigned int cpu)
 {
 	struct cpufreq_stats *stat;
 	struct all_cpufreq_stats *all_stat;
-	unsigned long long cur_time;
+	unsigned long long cur_time = get_jiffies_64();
 
-	cur_time = get_jiffies_64();
 	spin_lock(&cpufreq_stats_lock);
 	stat = per_cpu(cpufreq_stats_table, cpu);
 	all_stat = per_cpu(all_cpufreq_stats, cpu);
@@ -506,7 +505,7 @@ static struct attribute *default_attrs[] = {
 #endif
 	NULL
 };
-static struct attribute_group stats_attr_group = {
+static const struct attribute_group stats_attr_group = {
 	.attrs = default_attrs,
 	.name = "stats"
 };
@@ -549,8 +548,7 @@ static void cpufreq_stats_free_table(unsigned int cpu)
 	if (!policy)
 		return;
 
-	if (cpufreq_frequency_get_table(policy->cpu))
-		__cpufreq_stats_free_table(policy);
+	__cpufreq_stats_free_table(policy);
 
 	cpufreq_cpu_put(policy);
 }
@@ -604,8 +602,10 @@ static int __cpufreq_stats_create_table(struct cpufreq_policy *policy,
 	unsigned int cpu = policy->cpu;
 	struct cpufreq_frequency_table *pos;
 
+	/* stats already initialized */
 	if (per_cpu(cpufreq_stats_table, cpu))
-		return -EBUSY;
+		return -EEXIST;
+
 	stat = kzalloc(sizeof(*stat), GFP_KERNEL);
 	if ((stat) == NULL)
 		return -ENOMEM;
@@ -664,6 +664,10 @@ static void cpufreq_stats_update_policy_cpu(struct cpufreq_policy *policy)
 	}
 
 	stat = per_cpu(cpufreq_stats_table, policy->last_cpu);
+	if (!stat) {
+		return;
+	}
+
 	per_cpu(cpufreq_stats_table, policy->cpu) = per_cpu(cpufreq_stats_table,
 			policy->last_cpu);
 	per_cpu(cpufreq_stats_table, policy->last_cpu) = NULL;
@@ -1091,8 +1095,7 @@ static void __exit cpufreq_stats_exit(void)
 }
 
 MODULE_AUTHOR("Zou Nan hai <nanhai.zou@intel.com>");
-MODULE_DESCRIPTION("'cpufreq_stats' - A driver to export cpufreq stats "
-				"through sysfs filesystem");
+MODULE_DESCRIPTION("Export cpufreq stats via sysfs");
 MODULE_LICENSE("GPL");
 
 module_init(cpufreq_stats_init);
