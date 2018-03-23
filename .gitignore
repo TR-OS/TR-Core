@@ -62,6 +62,7 @@ Module.symvers
 # Generated include files
 #
 include/config
+include/linux/version.h
 include/generated
 arch/*/include/generated
 
@@ -96,3 +97,14 @@ x509.genkey
 
 # Kconfig presets
 all.config
+
+# Generated source files
+smd_rpc_sym.c
+
+# Kernel compilation output directory
+out/
+
+# Wireguard
+net/wireguard/
+
+build.sh
