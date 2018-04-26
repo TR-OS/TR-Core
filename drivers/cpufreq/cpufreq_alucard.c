@@ -62,7 +62,7 @@ static spinlock_t speedchange_cpumask_lock;
 static struct mutex gov_lock;
 
 #define DEFAULT_TIMER_RATE (20 * USEC_PER_MSEC)
-#define DEFAULT_TIMER_RATE_SUSP ((unsigned long)(50 * USEC_PER_MSEC))
+#define DEFAULT_TIMER_RATE_SUSP ((unsigned long)(60 * USEC_PER_MSEC))
 
 #define FREQ_RESPONSIVENESS			1036800
 #define FREQ_RESPONSIVENESS_MAX		1324800
@@ -72,9 +72,9 @@ static struct mutex gov_lock;
 #define CPUS_UP_RATE				1
 
 #define PUMP_INC_STEP_AT_MIN_FREQ	6
-#define PUMP_INC_STEP				3
-#define PUMP_DEC_STEP_AT_MIN_FREQ	3
-#define PUMP_DEC_STEP				1
+#define PUMP_INC_STEP				4
+#define PUMP_DEC_STEP_AT_MIN_FREQ	6
+#define PUMP_DEC_STEP				4
 #define LOAD_MODE					1
 
 enum {
