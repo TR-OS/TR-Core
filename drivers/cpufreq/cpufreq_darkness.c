@@ -60,7 +60,7 @@ static spinlock_t speedchange_cpumask_lock;
 static struct mutex gov_lock;
 
 #define DEFAULT_TIMER_RATE (20 * USEC_PER_MSEC)
-#define DEFAULT_TIMER_RATE_SUSP ((unsigned long)(50 * USEC_PER_MSEC))
+#define DEFAULT_TIMER_RATE_SUSP ((unsigned long)(70 * USEC_PER_MSEC))
 #define LOAD_MODE					1
 
 enum {
