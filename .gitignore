@@ -98,8 +98,9 @@ x509.genkey
 all.config
 
 
-# Caesium build system edits
+# Build system edits
 out/
-zips/
+net/wireguard/
 build.sh
-*.txt
+changelog.sh
+Changelog.txt
