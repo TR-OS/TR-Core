@@ -174,6 +174,12 @@ config CPU_FREQ_DEFAULT_GOV_BIOSHOCK
 	help
 	  Default governor of BioShock kernel
 
+config CPU_FREQ_DEFAULT_GOV_TRIPNDROID
+	bool "tripndroid"
+	select CPU_FREQ_GOV_TRIPNDROID
+	help
+	  Select tripndroid cpu governor as default
+
 config CPU_FREQ_DEFAULT_GOV_SCHED
 	bool "sched"
 	select CPU_FREQ_GOV_INTERACTIVE
@@ -351,6 +357,14 @@ config CPU_FREQ_GOV_BIOSHOCK
 	  'bioshock' - More aggressive version of conservative
 	  
 	  If in doubt, say N.
+
+config CPU_FREQ_GOV_TRIPNDROID
+    tristate "'tripndroid' cpufreq governor"
+    depends on CPU_FREQ
+    help
+	  Custom cpu governor designed specificly for multi cpu mobile devices.
+	  Aiming at a balance between performance and battery lifetime, but it
+	  hangs a little bit more towards performance at low latencys.    
 
 config CPU_FREQ_GOV_RELAXED
 	tristate "'relaxed' cpufreq governor"
