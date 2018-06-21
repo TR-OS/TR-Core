@@ -35,6 +35,8 @@
 				 IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING)
 #define IRQF_TRIGGER_PROBE	0x00000010
 
+#define IRQF_PERF_CRITICAL	0x00080000
+
 /*
  * These flags used only by the kernel as part of the
  * irq handling routines.
