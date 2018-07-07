@@ -545,9 +545,6 @@ extern struct cpufreq_governor cpufreq_gov_tripndroid;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_GABRIEL)
 extern struct cpufreq_governor cpufreq_gov_gabriel;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_gabriel)
-#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_SCHED)
-extern struct cpufreq_governor cpufreq_gov_sched;
-#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_sched)
 #endif
 
 /*********************************************************************
@@ -689,7 +686,4 @@ void cpufreq_task_stats_remove_uids(uid_t uid_start, uid_t uid_end);
 int  proc_time_in_state_show(struct seq_file *m, struct pid_namespace *ns,
 	struct pid *pid, struct task_struct *p);
 
-struct sched_domain;
-unsigned long cpufreq_scale_freq_capacity(struct sched_domain *sd, int cpu);
-unsigned long cpufreq_scale_max_freq_capacity(int cpu);
 #endif /* _LINUX_CPUFREQ_H */
